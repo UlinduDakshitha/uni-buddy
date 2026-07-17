@@ -563,9 +563,7 @@ The following screenshots demonstrate the completed application.
 
 Displays the landing page introducing Uni Buddy together with the available onboarding topics.
 
-```
-screenshots/home.png
-```
+![Home Page](screenshots/home.png)
 
 ---
 
@@ -573,9 +571,7 @@ screenshots/home.png
 
 Shows a conversation between a student and the AI assistant responding to onboarding-related questions.
 
-```
-screenshots/chat.png
-```
+![Chat Interface](screenshots/chat.png)
 
 ---
 
@@ -583,9 +579,7 @@ screenshots/chat.png
 
 Illustrates the responsive layout optimized for mobile devices.
 
-```
-screenshots/mobile.png
-```
+![Mobile View](screenshots/mobile.png)
 
 ---
 
