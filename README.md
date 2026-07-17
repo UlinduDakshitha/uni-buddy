@@ -1,286 +1,654 @@
-# Uni Buddy — AI Student Onboarding Assistant
+# Uni Buddy – AI-Powered Student Onboarding Assistant
 
-A production-style AI virtual assistant that helps new university students get
-settled in — answering questions about orientation, course registration,
-hostel, IT/Wi-Fi setup, student ID, library, fees, and campus navigation.
-Built for the Artin Solutions AI Product Prototype Challenge.
+Uni Buddy is an AI-powered virtual assistant developed to simplify the university onboarding experience for newly enrolled students. The application enables students to obtain accurate and instant answers to common onboarding questions through a conversational chat interface powered by a Large Language Model (LLM).
 
-**Live demo:** _add your deployed Vercel URL here after deployment_
-**Backend API:** _add your deployed Render URL here after deployment_
+The assistant provides guidance on course registration, orientation programs, hostel facilities, student identification, university Wi-Fi, library services, tuition fees, campus navigation, and university contact information. Instead of searching through multiple documents or contacting university staff for routine inquiries, students can interact with Uni Buddy using natural language and receive immediate responses.
+
+The project was developed as a prototype for the **Artin Solutions AI Product Prototype Challenge**, with a strong focus on usability, maintainability, configurable knowledge management, and deployment using free-tier cloud services.
 
 ---
 
-## 1. Research Process & Findings
+# Live Demo
 
-**Problem chosen:** New students are flooded with scattered information
-(emails, PDFs, notice boards) during onboarding. A conversational assistant
-that answers questions instantly, in plain language, reduces load on the
-Student Affairs Office and helps students settle in faster.
+### Frontend (Vercel)
 
-**AI provider research:**
+https://uni-buddy-tau.vercel.app
 
-| Option | Notes | Decision |
-|---|---|---|
-| **Google Gemini free tier** (`gemini-2.0-flash`) | Free, no credit card, generous limits, OpenAI-compatible endpoint | ✅ Default provider |
-| **Groq API** (Llama 3.3 70B) | Free, no credit card, very fast (LPU hardware), OpenAI-compatible API | ✅ Supported alternative (`PROVIDER=groq`) |
-| OpenAI API | Requires paid credits | ❌ Rejected — challenge asks to avoid paid APIs |
-| Local LLM (Ollama) | Fully free but needs a capable local GPU to be fast/reliable | Rejected for reliability within the time budget |
-| Rule-based bot (no LLM) | Free, simple | Rejected — doesn't satisfy "natural AI-powered conversation" requirement |
+### Backend API (Railway)
 
-**Why the backend supports two providers:** during development the original
-Groq account/organization was restricted by Groq ("Restricted access — your
-organization has been restricted due to violating our terms of service") with
-no clear cause given. Rather than block the whole project on a support
-appeal, the backend was designed provider-agnostic from the start — both
-Groq and Gemini expose an OpenAI-compatible `chat/completions` API, so
-switching is a single `PROVIDER` value in `.env`. Documented here
-deliberately: adapting to a real API/access issue under a deadline is part
-of the engineering process the challenge asks to demonstrate.
+https://uni-buddy-production.up.railway.app
 
-**Frontend stack research:** the first draft of this project used a single
-vanilla HTML/CSS/JS page. It worked, but felt closer to a demo than a
-product. For this revision the frontend was rebuilt with **React + Vite +
-Tailwind CSS**, which gives:
-- A real component structure (Header, MessageBubble, TypingIndicator, QuickTopics)
-- Two proper "screens" (Home hero page and the Chat page) via React Router
-- Consistent styling via a small design-token setup in `tailwind.config.js`
-- A fast, modern build pipeline that deploys cleanly to Vercel
+### API Health Check
 
-**Avatar research:** the challenge accepts a chat interface as a fallback
-when a 3D avatar isn't feasible in the time budget. Rigging a 3D avatar
-(e.g. Ready Player Me + Three.js) well within ~8 hours realistically trades
-off against making the AI conversation and knowledge base actually good, so
-effort went into the latter, with a polished, branded chat UI instead of a
-shallow 3D integration.
+https://uni-buddy-production.up.railway.app/api/health
 
 ---
 
-## 2. Design & Architecture
+# Project Objectives
+
+The primary objective of Uni Buddy is to improve the onboarding experience for first-year university students by providing a simple and intelligent conversational assistant.
+
+The application aims to:
+
+- Provide instant answers to common student questions.
+- Reduce the workload of university administrative staff.
+- Deliver consistent and reliable onboarding information.
+- Demonstrate practical integration of Large Language Models into a real-world web application.
+- Showcase a production-ready full-stack application using modern web technologies.
+
+---
+
+# Key Features
+
+## AI-Powered Conversation
+
+Students can communicate with the assistant using natural language. Responses are generated by a Large Language Model while being guided by a university-specific knowledge base.
+
+---
+
+## Configurable Knowledge Base
+
+Instead of storing information inside the source code, onboarding content is maintained as separate JSON files.
+
+Each topic can be updated independently without modifying the application logic.
+
+Current knowledge topics include:
+
+- Course Registration
+- Student Orientation
+- Hostel Facilities
+- University Wi-Fi
+- Student ID
+- Library Services
+- Tuition Fees
+- Campus Navigation
+- Important University Contacts
+
+---
+
+## Responsive User Interface
+
+The application provides a clean and responsive interface that works across desktop, tablet, and mobile devices.
+
+---
+
+## Modular Architecture
+
+The project follows a clear separation between frontend, backend, and knowledge base, making future maintenance and feature expansion straightforward.
+
+---
+
+## Provider-Agnostic AI Integration
+
+The backend supports multiple AI providers through environment variables.
+
+Supported providers include:
+
+- Groq (Llama 3.3 70B)
+- Google Gemini
+
+Switching between providers requires only a configuration change without modifying application code.
+
+---
+
+# Research Process & Findings
+
+## Problem Identification
+
+University onboarding is often a stressful process for new students.
+
+Essential information is usually distributed through multiple sources such as:
+
+- Emails
+- PDF documents
+- University websites
+- Social media announcements
+- Student groups
+
+As a result, students frequently struggle to locate accurate information quickly and often depend on university staff or senior students for assistance.
+
+This creates repetitive administrative work while delaying students from accessing important information.
+
+---
+
+## Proposed Solution
+
+A conversational AI assistant was selected as the proposed solution because it enables students to ask questions naturally while receiving immediate responses based on university onboarding information.
+
+Instead of manually browsing documents, students simply interact with the assistant as they would with a human support officer.
+
+---
+
+## AI Provider Research
+
+Several AI providers were evaluated before implementation.
+
+| Provider | Advantages | Limitations | Decision |
+|----------|------------|------------|-----------|
+| Groq (Llama 3.3 70B) | Very fast, free tier, OpenAI-compatible API | Usage limits | ✅ Selected |
+| Google Gemini | Free tier, reliable, OpenAI-compatible endpoint | Slightly slower response time | ✅ Supported |
+| OpenAI GPT | Excellent performance | Paid API required | ❌ Not selected |
+| Ollama (Local LLM) | Fully offline | High hardware requirements | ❌ Not selected |
+
+After evaluation, Groq was selected as the primary provider due to its excellent inference speed, generous free tier, and seamless integration with the existing backend architecture.
+
+---
+
+## Frontend Technology Research
+
+Several frontend approaches were considered.
+
+| Technology | Evaluation |
+|------------|------------|
+| Vanilla HTML/CSS/JS | Suitable for simple prototypes but difficult to scale |
+| React + Vite | Component-based architecture, fast development, modern ecosystem |
+
+React with Vite was selected because it provides reusable components, efficient state management, rapid development, and excellent deployment support through Vercel.
+
+---
+
+## Backend Technology Research
+
+Node.js with Express.js was selected because it offers:
+
+- Lightweight architecture
+- Fast REST API development
+- Excellent ecosystem
+- Easy integration with AI providers
+- Strong community support
+
+---
+
+## Knowledge Base Design
+
+Instead of storing university information inside JavaScript files or a database, the application uses individual JSON files.
+
+Benefits include:
+
+- Easy maintenance
+- No database dependency
+- Clear separation of content and application logic
+- Simple expansion by adding additional topic files
+
+This design satisfies the configurable knowledge requirement while keeping the implementation lightweight and maintainable.
+
+---
+
+# System Architecture
+
+Uni Buddy follows a modular three-tier architecture consisting of the frontend, backend, and AI-powered knowledge layer.
 
 ```
-┌──────────────────────┐        POST /api/chat        ┌──────────────────────┐
-│   React Frontend       │ ────────────────────────────▶│   Express Backend     │
-│  (Vite + Tailwind)      │                              │    (server.js)        │
-│  Home page / Chat page  │◀──────────────────────────── │                       │
-└──────────────────────┘        { reply: "..." }         └──────────┬───────────┘
-                                                                     │
-                                                     loads & combines │
-                                                                     ▼
-                                                   ┌────────────────────────────┐
-                                                   │  /knowledge/*.json           │
-                                                   │  (9 topic files, configurable)│
-                                                   └────────────────────────────┘
-                                                                     │
-                                                     system prompt + history
-                                                                     ▼
-                                                   ┌────────────────────────────┐
-                                                   │  Groq or Gemini API          │
-                                                   │  (chosen via PROVIDER env)   │
-                                                   └────────────────────────────┘
+                    ┌──────────────────────────┐
+                    │        React Frontend     │
+                    │      (Vite + Tailwind)    │
+                    └─────────────┬─────────────┘
+                                  │
+                         HTTP / REST API
+                                  │
+                                  ▼
+                    ┌──────────────────────────┐
+                    │     Express Backend       │
+                    │       (Node.js)           │
+                    └─────────────┬─────────────┘
+                                  │
+              Loads University Knowledge Base
+                                  │
+                                  ▼
+                    ┌──────────────────────────┐
+                    │      JSON Knowledge       │
+                    │  Registration, Hostel,   │
+                    │ Wi-Fi, Library, Fees...  │
+                    └─────────────┬─────────────┘
+                                  │
+                          Builds System Prompt
+                                  │
+                                  ▼
+                    ┌──────────────────────────┐
+                    │      Groq / Gemini        │
+                    │       Large Language      │
+                    │          Model            │
+                    └──────────────────────────┘
 ```
 
-**Frontend (`/frontend`):**
-- `src/pages/Home.jsx` — hero section, welcome copy, "Start Chatting" CTA, popular-topics grid
-- `src/pages/Chat.jsx` — chat screen: message list, typing indicator, quick-topic chips, composer
-- `src/components/` — `Header`, `MessageBubble`, `TypingIndicator`, `QuickTopics` (all reusable, presentational)
-- `src/lib/api.js` — thin Axios wrapper around the backend `/api/chat` and `/api/topics` endpoints
-- `src/lib/markdown.js` — small, safe markdown renderer (bold + bullet lists) so multi-step answers render as real lists, not literal `*` characters
-- `src/lib/topics.jsx` — single source of truth for the 9 knowledge topics + icons, shared by both pages
-
-**Backend (`/backend`):**
-- `server.js` — Express app, one `/api/chat` endpoint (+ `/api/health`, `/api/topics`)
-- `knowledge/*.json` — one file per topic (registration, hostel, wifi, student-id, fees, orientation, library, contacts, campus-map); combined into the system prompt on every request
-
 ---
 
-## 3. Design Decisions
-
-- **Prompt-injection instead of a vector database (RAG-lite):** all 9 topic
-  files together are small enough to fit comfortably in the LLM's context
-  window, so the whole knowledge base is injected into the system prompt
-  rather than using embeddings + a vector store. Keeps the project fully
-  free and simple, at the cost of not scaling to a very large knowledge
-  base — a documented trade-off, not an oversight.
-- **One JSON file per topic, not one big file:** matches how a real
-  university would maintain this content (different offices own different
-  topics) and makes the "configurable knowledge" requirement obvious and
-  easy to extend — adding a new topic is just adding a new `.json` file.
-- **Provider-agnostic backend:** see the research section above — this
-  wasn't just a nice-to-have, it's what kept the project moving when Groq
-  access was interrupted.
-- **React + Vite + Tailwind over vanilla JS:** a component-based frontend
-  scales better, is easier to keep consistent, and matches the "professional
-  level" bar for this revision, at the cost of a slightly heavier build step.
-- **Client-held conversation history:** the browser keeps the messages array
-  in React state and resends it each turn; no server-side session storage,
-  which keeps the backend stateless and simple to deploy/scale.
-- **Markdown rendering is intentionally minimal:** only bold text and bullet
-  lists are supported — enough for step-by-step onboarding instructions,
-  without pulling in a full markdown library for a small chat assistant.
-
----
-
-## 4. Implementation Process
-
-1. Scaffolded the React app with Vite (`create-vite`), added Tailwind CSS,
-   `lucide-react` for icons, `axios` for HTTP, and `react-router-dom` for
-   the Home/Chat screens.
-2. Split the knowledge base into 9 topic-specific JSON files and wrote the
-   backend loader that combines them into one system-prompt block.
-3. Built the Express backend with a provider-agnostic `/api/chat` endpoint,
-   verified with `curl` against both `/api/health` and `/api/topics`.
-4. Built the Home page (hero, CTA, popular topics grid) and Chat page
-   (message list, typing indicator, quick-topic chips, composer) as
-   separate routes.
-5. Wired the frontend to the backend via a Vite dev proxy (`/api` →
-   `localhost:3000`) so no CORS config is needed locally.
-6. Verified `npm run build` produces a clean production bundle.
-7. Documented deployment steps for Vercel (frontend) and Render (backend).
-
----
-
-## 5. Technologies & Platforms Used
-
-| Part | Technology |
-|---|---|
-| Frontend framework | React 19 + Vite |
-| Styling | Tailwind CSS 3 |
-| Icons | lucide-react |
-| Routing | react-router-dom |
-| HTTP client | Axios |
-| Backend | Node.js + Express |
-| AI model/service | Google Gemini (`gemini-2.0-flash`, free tier) — or Groq (`llama-3.3-70b-versatile`, free tier) |
-| Knowledge base | Plain JSON files (one per topic) |
-| Deployment (recommended) | Vercel (frontend) + Render (backend), both free tiers |
-
----
-
-## 6. Working Prototype
-
-Run locally with the setup instructions below (takes about 5 minutes), or
-deploy for free following the deployment guide in section 10 and link the
-live URL at the top of this file.
-
----
-
-## 7. Source Code Structure
+# Project Structure
 
 ```
 uni-buddy/
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── pages/          (Home.jsx, Chat.jsx)
-│   │   ├── components/     (Header, MessageBubble, TypingIndicator, QuickTopics)
-│   │   ├── lib/             (api.js, markdown.js, topics.jsx)
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── lib/
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── tailwind.config.js
-│   ├── .env.example
-│   └── package.json
+│   │
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+│
 ├── backend/
+│   ├── knowledge/
 │   ├── server.js
-│   ├── knowledge/            (9 topic JSON files)
-│   ├── .env.example
-│   └── package.json
-├── .gitignore
+│   ├── package.json
+│   └── .env.example
+│
+├── screenshots/
+│
 └── README.md
 ```
 
 ---
 
-## 8. Setup Instructions (Local Development)
+# Design Decisions
 
-**Prerequisites:** Node.js 18+.
+Several architectural decisions were made to keep the application lightweight, maintainable, and easy to extend.
 
-### Backend
+## React + Vite
+
+React was selected to create reusable UI components and simplify state management.
+
+Vite provides an extremely fast development server, efficient production builds, and seamless deployment through Vercel.
+
+---
+
+## Express.js Backend
+
+Express.js was selected because it is lightweight, flexible, and well suited for building REST APIs.
+
+Its middleware architecture also simplifies request handling and future feature additions.
+
+---
+
+## JSON-Based Knowledge Base
+
+University information is stored as individual JSON files instead of hardcoded responses or a traditional database.
+
+This approach offers several benefits:
+
+- Easy content management
+- No database setup required
+- Independent topic maintenance
+- Simple scalability
+
+Adding a new knowledge topic only requires creating another JSON file.
+
+---
+
+## Stateless Backend
+
+The backend does not maintain user sessions.
+
+Instead, the frontend sends the complete conversation history with each request.
+
+Advantages include:
+
+- Easier deployment
+- Better scalability
+- No session storage
+- Simpler backend architecture
+
+---
+
+## Provider-Agnostic AI Layer
+
+The AI provider is selected using environment variables.
+
+This allows the backend to switch between Groq and Google Gemini without modifying application code.
+
+This design improves flexibility while reducing vendor dependency.
+
+---
+
+# Implementation Process
+
+The project was developed through several implementation stages.
+
+### Phase 1 – Research
+
+- Identified the onboarding problem.
+- Researched available AI providers.
+- Compared free-tier services.
+- Selected the overall technology stack.
+
+---
+
+### Phase 2 – Backend Development
+
+- Created the Express server.
+- Implemented REST API endpoints.
+- Built the knowledge loader.
+- Connected the application to the AI provider.
+- Tested endpoints using Postman.
+
+---
+
+### Phase 3 – Frontend Development
+
+- Built the landing page.
+- Designed the chat interface.
+- Created reusable React components.
+- Implemented responsive layouts.
+- Integrated API communication.
+
+---
+
+### Phase 4 – Deployment
+
+- Backend deployed to Railway.
+- Frontend deployed to Vercel.
+- Configured environment variables.
+- Configured CORS.
+- Performed end-to-end testing.
+
+---
+
+# Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| Frontend | React 19 |
+| Build Tool | Vite |
+| Styling | Tailwind CSS |
+| Backend | Node.js |
+| Framework | Express.js |
+| HTTP Client | Axios |
+| Icons | Lucide React |
+| AI Provider | Groq API |
+| Alternative AI | Google Gemini |
+| Deployment | Railway |
+| Frontend Hosting | Vercel |
+| Version Control | Git |
+| Repository | GitHub |
+
+---
+
+# REST API
+
+## Health Check
+
+```
+GET /api/health
+```
+
+Response
+
+```json
+{
+  "status": "ok",
+  "provider": "groq",
+  "model": "llama-3.3-70b-versatile"
+}
+```
+
+---
+
+## Get Available Topics
+
+```
+GET /api/topics
+```
+
+Returns the list of supported onboarding topics.
+
+---
+
+## Chat Endpoint
+
+```
+POST /api/chat
+```
+
+Example Request
+
+```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "How do I connect to the university Wi-Fi?"
+    }
+  ]
+}
+```
+
+Example Response
+
+```json
+{
+  "reply": "To connect to the university Wi-Fi..."
+}
+```
+
+---
+
+# Environment Variables
+
+## Backend
+
+```env
+PROVIDER=groq
+
+GROQ_API_KEY=YOUR_API_KEY
+
+GROQ_MODEL=llama-3.3-70b-versatile
+
+FRONTEND_URL=https://uni-buddy-tau.vercel.app
+```
+
+---
+
+## Frontend
+
+```env
+VITE_API_URL=https://uni-buddy-production.up.railway.app
+```
+
+---
+
+# Deployment
+
+## Frontend
+
+- Platform: Vercel
+- Build Tool: Vite
+
+---
+
+## Backend
+
+- Platform: Railway
+- Runtime: Node.js
+
+---
+
+The deployed application has been tested to ensure successful communication between the frontend, backend, and AI provider through REST APIs.
+
+---
+
+# Local Installation
+
+## Prerequisites
+
+Before running the project locally, ensure the following software is installed:
+
+- Node.js (v18 or later)
+- npm
+- Git
+
+---
+
+## Clone the Repository
+
+```bash
+git clone https://github.com/<your-github-username>/uni-buddy.git
+
+cd uni-buddy
+```
+
+---
+
+## Backend Setup
 
 ```bash
 cd backend
+
 npm install
-cp .env.example .env
-# Open .env and either:
-#  - paste GEMINI_API_KEY (get a free one at https://aistudio.google.com/apikey), or
-#  - set PROVIDER=groq and paste GROQ_API_KEY (get one free at https://console.groq.com/keys)
+```
+
+Create a `.env` file inside the `backend` directory.
+
+```env
+PROVIDER=groq
+
+GROQ_API_KEY=YOUR_GROQ_API_KEY
+
+GROQ_MODEL=llama-3.3-70b-versatile
+
+FRONTEND_URL=http://localhost:5173
+```
+
+Start the backend server.
+
+```bash
 npm start
 ```
 
-Backend runs at `http://localhost:3000`. Confirm it's up:
-```bash
-curl http://localhost:3000/api/health
+The backend will be available at:
+
+```
+http://localhost:3000
 ```
 
-### Frontend
+---
 
-In a second terminal:
+## Frontend Setup
+
+Open a second terminal.
+
 ```bash
 cd frontend
+
 npm install
+```
+
+Create a `.env` file.
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+Run the development server.
+
+```bash
 npm run dev
 ```
 
-Frontend runs at `http://localhost:5173` and proxies API calls to the
-backend automatically (see `vite.config.js`) — no extra config needed for
-local development.
+The frontend will be available at:
+
+```
+http://localhost:5173
+```
 
 ---
 
-## 9. Deployment Guide (Free Tier)
+# Screenshots
 
-### Backend → Render
+The following screenshots demonstrate the completed application.
 
-1. Push this project to a GitHub repo.
-2. On [render.com](https://render.com), create a **New Web Service** from
-   your repo.
-3. Set **Root Directory** to `backend`.
-4. Build command: `npm install` · Start command: `npm start`.
-5. Add environment variables from `backend/.env.example` (at least
-   `PROVIDER` and the matching API key). Add `FRONTEND_URL` once you know
-   your Vercel URL, to restrict CORS to just your frontend.
-6. Deploy — Render gives you a URL like `https://uni-buddy-backend.onrender.com`.
+## Home Page
 
-### Frontend → Vercel
+Displays the landing page introducing Uni Buddy together with the available onboarding topics.
 
-1. On [vercel.com](https://vercel.com), import the same GitHub repo.
-2. Set **Root Directory** to `frontend` (Vercel auto-detects the Vite preset).
-3. Add environment variable `VITE_API_URL` = your Render backend URL from above.
-4. Deploy — Vercel gives you a URL like `https://uni-buddy.vercel.app`.
-5. Paste both URLs at the top of this README.
-
-*(Render's free tier spins down after inactivity, so the first request after
-idle time can take ~30 seconds to wake up — normal for free-tier hosting.)*
+```
+screenshots/home.png
+```
 
 ---
 
-## 10. Screenshots
+## Chat Interface
 
-Screenshots aren't included in this ZIP/repo — generating them requires an
-actual running browser session, so please capture your own once you have it
-running locally or deployed:
-1. Home page (hero + popular topics)
-2. Chat page with a sample conversation (e.g. asking about hostel or Wi-Fi)
-3. Mobile view (browser dev tools responsive mode, or an actual phone)
+Shows a conversation between a student and the AI assistant responding to onboarding-related questions.
 
-Save them into a `/screenshots` folder before zipping your final submission.
+```
+screenshots/chat.png
+```
 
 ---
 
-## 11. Other Notes / Limitations / Future Improvements
+## Mobile View
 
-**Limitations:**
-- Knowledge base is for a placeholder institution ("Greenfield University") —
-  in a real deployment this would be populated per-institution.
-- No persistent chat history across page reloads or multiple users/sessions.
-- No authentication — anyone with the link can chat.
-- Prompt-injection works well for 9 small topic files but would need
-  embedding-based retrieval if scaled to full handbooks/PDFs per topic.
-- Render's free tier cold-starts after inactivity (see deployment note above).
+Illustrates the responsive layout optimized for mobile devices.
 
-**Future improvements given more time:**
-- Lightweight vector search so the knowledge base can grow without hitting
-  context limits.
-- A simple admin UI to edit topic JSON files without touching raw JSON.
-- Persist chat history (e.g. localStorage or a lightweight DB) across reloads.
-- Add a simple animated 2D avatar (Lottie) for personality without full 3D complexity.
-- Voice input/output via the free Web Speech API for a voice-assistant mode.
+```
+screenshots/mobile.png
+```
+
+---
+
+# Challenges Encountered
+
+Several practical challenges were encountered during development.
+
+### AI Provider Selection
+
+Different AI providers were evaluated to identify a solution that provided reliable performance while remaining within free-tier usage limits.
+
+---
+
+### Frontend Deployment
+
+Deploying the React application required proper environment variable configuration to ensure successful communication with the backend service.
+
+---
+
+### Backend Deployment
+
+Cross-Origin Resource Sharing (CORS) configuration and deployment environment variables were carefully configured to enable secure communication between the frontend and backend.
+
+---
+
+### Knowledge Base Organization
+
+Designing a configurable knowledge base required separating university information into multiple topic-specific JSON files while keeping the backend implementation simple and maintainable.
+
+---
+
+# Future Improvements
+
+Given additional development time, several enhancements could further improve the application.
+
+- Authentication and student login
+- Persistent conversation history
+- Database integration
+- Admin dashboard for managing knowledge content
+- Voice interaction using Speech-to-Text and Text-to-Speech
+- Retrieval-Augmented Generation (RAG) with vector databases
+- Multi-language support
+- File upload support for university documents
+- Analytics dashboard for frequently asked questions
+
+---
+
+# Conclusion
+
+Uni Buddy demonstrates how Large Language Models can be integrated into a modern full-stack web application to solve a real-world university onboarding problem.
+
+The project combines a React frontend, an Express backend, configurable JSON-based knowledge management, and cloud deployment to deliver a lightweight, scalable, and user-friendly AI assistant.
+
+The architecture emphasizes modularity, maintainability, and ease of deployment while remaining entirely based on free-tier development tools and services.
+
+This prototype successfully meets the objectives of providing students with immediate access to onboarding information through an intuitive conversational interface.
+
+---
+
+# License
+
+This project was developed as part of the **Artin Solutions AI Product Prototype Challenge**.
+
+The source code is intended for educational and evaluation purposes.
+
+© 2026 Ulindu Dakshitha. All rights reserved.
