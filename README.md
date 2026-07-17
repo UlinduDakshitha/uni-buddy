@@ -484,7 +484,7 @@ Before running the project locally, ensure the following software is installed:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/<your-github-username>/uni-buddy.git
+https://github.com/UlinduDakshitha/uni-buddy.git
 
 cd uni-buddy
 ```
