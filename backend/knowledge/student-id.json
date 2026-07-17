@@ -1,0 +1,8 @@
+{
+  "category": "Student ID Card",
+  "items": [
+    { "q": "How do I get my student ID card?", "a": "Student ID cards are issued on Day 1 of Orientation Week at the Admin Building. Bring your admission letter, NIC/passport, and 2 passport-size photos." },
+    { "q": "What do I do if I lose my student ID?", "a": "Report the loss immediately to Campus Security, then request a replacement card at the Admin Building (a small reissue fee applies)." },
+    { "q": "What is the student ID used for?", "a": "Your ID doubles as your library card, exam admission card, and campus building access card, so keep it with you at all times." }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "category": "Library",
+  "items": [
+    { "q": "How do I access the library?", "a": "Your student ID card doubles as your library card. Tap it at the entry gate. Library hours are 8 AM to 9 PM on weekdays, 9 AM to 5 PM on weekends." },
+    { "q": "How many books can I borrow?", "a": "Undergraduate students can borrow up to 5 books for 14 days, renewable twice if no one else has reserved them." },
+    { "q": "Can I access the library online?", "a": "Yes — the e-library portal (library.greenfield.edu) gives access to e-books, journals, and past exam papers using your student login." }
+  ]
+}

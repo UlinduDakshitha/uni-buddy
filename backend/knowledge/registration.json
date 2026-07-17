@@ -1,0 +1,8 @@
+{
+  "category": "Course Registration",
+  "items": [
+    { "q": "How do I register for courses?", "a": "Course registration is done online through the Student Portal (portal.greenfield.edu) under 'Course Registration'. It opens 2 weeks before semester start and closes 1 week after classes begin (late registration has a small fee)." },
+    { "q": "What if a course I want is full?", "a": "You can join the waitlist on the portal. You'll be auto-enrolled if a seat opens, or you can email the faculty coordinator for an override request." },
+    { "q": "How do I drop or change a course?", "a": "Course changes are allowed within the first 2 weeks of the semester via the portal's 'Add/Drop' tab, with no penalty. After that, a Course Change Form needs faculty coordinator approval." }
+  ]
+}

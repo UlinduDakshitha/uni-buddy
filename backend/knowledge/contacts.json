@@ -1,0 +1,8 @@
+{
+  "category": "Support & Contacts",
+  "items": [
+    { "q": "Who do I contact if I have a problem?", "a": "For academic issues, contact your faculty coordinator. For general student welfare, the Student Affairs Office (Admin Building, Room 12) is available Mon-Fri, 9 AM - 4 PM. Emergency campus security: extension 555." },
+    { "q": "How do I join a club or society?", "a": "Visit the Club Fair during Orientation Week Day 3, or browse and sign up anytime through the 'Student Life' section of the portal." },
+    { "q": "Is there counseling support available?", "a": "Yes, the Student Wellness Centre (Admin Building, Room 8) offers free confidential counseling — book a slot through the portal or walk in during office hours." }
+  ]
+}

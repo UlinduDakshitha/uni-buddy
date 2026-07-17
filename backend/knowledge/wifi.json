@@ -1,0 +1,8 @@
+{
+  "category": "IT & Wi-Fi Setup",
+  "items": [
+    { "q": "How do I connect to campus Wi-Fi?", "a": "Connect to the 'GreenfieldNet' Wi-Fi network and log in with your student email and portal password. If you face issues, visit the IT Helpdesk in the Library Building, Room 105." },
+    { "q": "How do I get my student email?", "a": "Your student email is automatically created as firstname.lastname@student.greenfield.edu. Login instructions are sent to your personal email within 48 hours of admission confirmation." },
+    { "q": "I forgot my portal password, what do I do?", "a": "Use the 'Forgot Password' link on the Student Portal login page, or visit the IT Helpdesk with your student ID for an in-person reset." }
+  ]
+}

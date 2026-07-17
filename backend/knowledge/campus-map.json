@@ -1,0 +1,8 @@
+{
+  "category": "Campus Map",
+  "items": [
+    { "q": "Where are the main buildings on campus?", "a": "The Admin Building (ID cards, Student Affairs, Finance) is at the main entrance. The Library Building (library + IT Helpdesk) is directly behind it. Lecture Halls are in the East Wing, and the Hostel blocks and Cafeteria are on the West side of campus." },
+    { "q": "Where is the cafeteria?", "a": "The main Cafeteria is on the West side of campus, next to the hostel blocks, open 7 AM to 8 PM daily." },
+    { "q": "Where do I find the Finance Office?", "a": "The Finance Office is on the ground floor of the Admin Building, right next to the ID card counter." }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "category": "Fees & Payments",
+  "items": [
+    { "q": "How do I pay my tuition fees?", "a": "Fees can be paid online via the Student Portal (card/bank transfer) or in person at the Finance Office. Payment deadlines are shown on your registration confirmation." },
+    { "q": "Are scholarships available?", "a": "Yes, merit and need-based scholarships are available. Applications open through the Financial Aid Office within the first month of each academic year." },
+    { "q": "What happens if I miss a fee deadline?", "a": "A late fee applies after the deadline, and course registration may be put on hold until payment is made. Contact the Finance Office if you need a payment plan." }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "category": "Accommodation & Hostel",
+  "items": [
+    { "q": "How do I apply for hostel accommodation?", "a": "Apply through the Accommodation Office portal within the first 10 days of admission. Rooms are allocated on a first-come basis; priority is given to out-of-district students." },
+    { "q": "What is included in hostel fees?", "a": "Hostel fees cover the room, electricity, water, and common area maintenance. Meals are separate and can be purchased via the cafeteria meal plan." },
+    { "q": "Can I choose my roommate?", "a": "Yes — submit a joint roommate request through the portal before the allocation deadline. Requests received after allocation starts can't be guaranteed." }
+  ]
+}
