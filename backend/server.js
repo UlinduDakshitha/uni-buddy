@@ -12,13 +12,21 @@ const app = express();
 
 // Allow the deployed frontend origin (set FRONTEND_URL in .env for production).
 // In development, allow all origins so the Vite dev server can call freely.
-const allowedOrigin = process.env.FRONTEND_URL;
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(
-  cors(
-    allowedOrigin
-      ? { origin: allowedOrigin }
-      : { origin: true }
-  )
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
 );
 app.use(express.json());
 
